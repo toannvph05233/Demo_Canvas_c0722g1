@@ -1,8 +1,21 @@
-let products = [
-    ["oto", "https://autopro8.mediacdn.vn/2020/8/30/photo-1-1598770695329180553093.jpg", 10000],
-    ["moto", "https://vnn-imgs-f.vgcloud.vn/2019/11/11/19/nhung-sieu-moto-dat-nhat-the-gioi-cao-nhat-gia-1-trieu-usd.jpg", 5000]
-]
+class Product {
+    name;
+    img;
+    price;
 
+    constructor(name, img, price) {
+        this.name = name;
+        this.img = img;
+        this.price = price;
+    }
+}
+
+
+let oto = new Product("oto", "https://autopro8.mediacdn.vn/2020/8/30/photo-1-1598770695329180553093.jpg", 10000);
+let moto = new Product("moto", "https://vnn-imgs-f.vgcloud.vn/2019/11/11/19/nhung-sieu-moto-dat-nhat-the-gioi-cao-nhat-gia-1-trieu-usd.jpg", 100);
+
+
+let products = [oto, moto];
 let indexEdit = -1;
 
 show();
@@ -12,9 +25,9 @@ function show() {
     for (let i = 0; i < products.length; i++) {
         str += `
               <tr>
-                <td>${products[i][0]}</td>
-                <td><img src="${products[i][1]}" width="200" height="150"></td>
-                <td>${products[i][2]}</td>
+                <td>${products[i].name}</td>
+                <td><img src="${products[i].img}" width="200" height="150"></td>
+                <td>${products[i].price}</td>
                 <td><button onclick="showEdit(${i})">Edit</button></td>
                 <td><button onclick="deleteProduct(${i})">Delete</button></td>
             </tr>`
@@ -28,10 +41,11 @@ function create() {
     let img = document.getElementById("img").value;
     let price = document.getElementById("price").value;
 
+    let newObject = new Product(name, img, price);
     if (indexEdit === -1) {
-        products.push([name, img, price]);
+        products.push(newObject);
     } else {
-        products[indexEdit] = [name, img, price];
+        products[indexEdit] = newObject;
         indexEdit = -1;
     }
     clearInput();
@@ -51,7 +65,7 @@ function clearInput() {
 
 function showEdit(index) {
     indexEdit = index;
-    document.getElementById("name").value = products[index][0];
-    document.getElementById("img").value = products[index][1];
-    document.getElementById("price").value = products[index][2];
+    document.getElementById("name").value = products[index].name;
+    document.getElementById("img").value = products[index].img;
+    document.getElementById("price").value = products[index].price;
 }
